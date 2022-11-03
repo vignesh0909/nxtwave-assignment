@@ -24,6 +24,7 @@ const Users = () => {
 
   return (<>
     <SwitchTabs />
+    <div className='container'>
       <div className='row'>
         {resources.map(app => (<>
           <div className='col col-sm-6 col-md-6 col-lg-4'>
@@ -38,7 +39,7 @@ const Users = () => {
                       {app.title}
                     </Card.Title>
                     <Card.Text className='mt-4'>
-                      <a href="{app.link}" className='text-decoration-none'>{app.link}</a>
+                      <a target="_blank" href="{app.link}" className='text-decoration-none'>{app.link}</a>
                     </Card.Text>
                     <Card.Text className='mt-1'>
                       {app.description}
@@ -50,6 +51,7 @@ const Users = () => {
           </div>
         </>))}
       </div>
+    </div>
   </>)
 }
 

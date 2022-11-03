@@ -11,9 +11,9 @@ function App() {
     <NavBar />
     <BrowserRouter>
       <Routes>
-        <Route path="" element={<Resources />} />
-        <Route path="requests" element={<Requests />} />
-        <Route path="users" element={<Users />} />
+        <Route path="/" element={<Resources />} />
+        <Route path="/requests" element={<Requests />} />
+        <Route path="/users" element={<Users />} />
       </Routes>
     </BrowserRouter>
   </>);
