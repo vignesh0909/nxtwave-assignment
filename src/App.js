@@ -6,6 +6,8 @@ import Requests from './components/Requests';
 import Users from './components/Users';
 import Resources from './components/Resources';
 import ResourceDetails from './components/ResourceDetails';
+import CreateItem from './components/CreateItem';
+import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
   return (<>
@@ -16,6 +18,7 @@ function App() {
         <Route path="/requests" element={<Requests />} />
         <Route path="/users" element={<Users />} />
         <Route path="/resource/:id" element={<ResourceDetails />} />
+        <Route path="/resource/create" element={<CreateItem />} />
       </Routes>
     </BrowserRouter>
   </>);
