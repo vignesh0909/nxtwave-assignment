@@ -1,10 +1,9 @@
 import React from 'react'
-import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 const NavBar = () => {
-    return (
+    return (<>
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light" className=''>
             <Navbar.Brand href="/">
                 <img
@@ -32,9 +31,9 @@ const NavBar = () => {
                     </Nav.Link>
                 </Nav>
             </Navbar.Collapse>
-
         </Navbar>
-    )
+
+    </>)
 }
 
 export default NavBar

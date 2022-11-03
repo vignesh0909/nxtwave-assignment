@@ -3,6 +3,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
+import SwitchTabs from './SwitchTabs';
 
 const Resources = () => {
 
@@ -18,37 +19,40 @@ const Resources = () => {
             })
     }, []);
 
-    return (
-        <div className='container m-5'>
-            <div className='m-3 row'>
-                {resources.map(app => (<>
-                    <div className='col-sm-6 col-md-4 '>
-                        <div id="divLogin" className="mt-3 bgImage panel-body-appointment1">
-                            <div className="m-2">
-                                <Card border="secondary" style={{ width: '25rem' }}>
-                                    {/* <Card.Header>Header</Card.Header> */}
-                                    <Card.Body>
-                                        <Card.Title>
-                                            <img src={app.icon_url} className="mr-5 mx-auto card-img-sm text-right" alt="..." />
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                            {app.title}
-                                        </Card.Title>
-                                        <Card.Text className='mt-4'>
-                                            <a href="{app.link}" className='text-decoration-none'>{app.link}</a>
-                                        </Card.Text>
-                                        <Card.Text className='mt-1'>
-                                            {app.description}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
+    return (<>
+        <div>
+            <SwitchTabs />
+            <div className='container m-5'>
+                <div className='m-3 row'>
+                    {resources.map(app => (<>
+                        <div className='col-sm-6 col-md-4 '>
+                            <div id="divLogin" className="mt-3 bgImage panel-body-appointment1">
+                                <div className="m-2">
+                                    <Card border="secondary" style={{ width: '25rem' }}>
+                                        {/* <Card.Header>Header</Card.Header> */}
+                                        <Card.Body>
+                                            <Card.Title>
+                                                <img src={app.icon_url} className="mr-5 mx-auto card-img-sm text-right" alt="..." />
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                {app.title}
+                                            </Card.Title>
+                                            <Card.Text className='mt-4'>
+                                                <a href="{app.link}" className='text-decoration-none'>{app.link}</a>
+                                            </Card.Text>
+                                            <Card.Text className='mt-1'>
+                                                {app.description}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </>))}
+                    </>))}
+                </div>
             </div>
         </div>
 
-    )
+    </>)
 }
 
 export default Resources
