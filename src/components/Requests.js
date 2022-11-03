@@ -3,7 +3,6 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-import { NavLink } from 'react-router-dom';
 import SwitchTabs from './SwitchTabs';
 
 const Requests = () => {

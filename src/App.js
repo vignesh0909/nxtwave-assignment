@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Requests from './components/Requests';
 import Users from './components/Users';
 import Resources from './components/Resources';
+import ResourceDetails from './components/ResourceDetails';
 
 function App() {
   return (<>
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Resources />} />
         <Route path="/requests" element={<Requests />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/resource/:id" element={<ResourceDetails />} />
       </Routes>
     </BrowserRouter>
   </>);
