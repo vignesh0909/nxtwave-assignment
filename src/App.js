@@ -16,9 +16,9 @@ function App() {
   const [login, setLogin] = useState("false");
 
   return (<>
-    <LoginContext.Provider value={{login, setLogin}} >
-      <NavBar />
+    <LoginContext.Provider value={{ login, setLogin }} >
       <BrowserRouter>
+        <NavBar />
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/resources" element={<Resources />} />
