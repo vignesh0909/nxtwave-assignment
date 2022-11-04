@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useFilters, usePagination, useRowSelect, useSortBy, useTable } from 'react-table'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 const IndeterminateCheckbox = React.forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -21,13 +20,6 @@ const IndeterminateCheckbox = React.forwardRef(
 )
 
 function Table({ data }) {
-    //console.log(tempData)
-    //const [data, setData] = useState([]);
-    //localStorage.setItem('items', tempData);
-    // useEffect(() => {
-    //     localStorage.setItem('items', tempData);
-    //     setData(localStorage.getItem('items'));
-    // }, [data]);
 
     const columns = useMemo(() => [
         {
@@ -78,8 +70,7 @@ function Table({ data }) {
         gotoPage,
         nextPage,
         previousPage,
-        setPageSize,
-        state: { pageIndex, pageSize },
+        state: { pageIndex },
         setFilter
     } = useTable(
         {
@@ -114,8 +105,8 @@ function Table({ data }) {
     const handleDelete = () => {
         console.log(selectedRowIds)
         console.log(selectedFlatRows)
-        const res = data.filter(({ id: id1 }) => !selectedFlatRows.some(({ id: id2 }) => id2 === id1));
-        console.log(data);
+        //const res = data.filter(({ id: id1 }) => !selectedFlatRows.some(({ id: id2 }) => id2 === id1));
+        //console.log(data);
     }
 
     return (<>

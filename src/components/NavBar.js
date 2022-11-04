@@ -20,7 +20,7 @@ const NavBar = () => {
                     <Nav.Link href="/" className=''><span className='h4 text-dark'>NXT Wave</span></Nav.Link>
                 </Nav>
                 <Nav>
-                    <Nav.Link href="#">
+                    <Nav.Link to='/resource/create'>
                         <button className='btn btn-success mr-3'>ADD ITEM</button>
                     </Nav.Link>
                     <Nav.Link eventKey={2} >

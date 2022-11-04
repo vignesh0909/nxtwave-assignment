@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button } from 'react-bootstrap';
+import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function CreateItem() {
+const CreateItem = () => {
+    const formInitialDetails = {
+        itemName: '',
+        link: '',
+        resourceName: '',
+        description: ''
+    }
 
-    const [itemTitle, setItemTitle] = useState("");
-    const [itemLink, setItemLink] = useState("");
-    const [resourceName, setResourceName] = useState("");
-    const [description, setDescription] = useState("");
+    const [formDetails, setFormDetails] = useState(formInitialDetails);
 
     const [formErrors, setFormErrors] = useState({
         itemTitleError: "",
@@ -15,67 +18,120 @@ function CreateItem() {
         resourceNameError: "",
         descriptionError: ""
     })
-    const [success, setSuccess] = useState("")
+
+    const onFormUpdate = (category, value) => {
+        setFormDetails({ ...formDetails, [category]: value })
+    }
 
     const validateInput = (e) => {
-        console.log(e.target);
-        console.log(itemTitle);
-    };
+        if (e.target.id === "itemName") {
+            let title = e.target.value;
+            if (title.length >= 3 && title.length <= 50) {
+                setFormErrors({ ...formErrors, itemTitleError: "" })
+            } else {
+                setFormErrors({ ...formErrors, itemTitleError: "Title should have 3 to 50 characters" });
+            }
+        }
+        else if (e.target.id === "link") {
+            let link = e.target.value;
+            if (link.length > 10) {
+                setFormErrors({ ...formErrors, itemLinkError: "" })
+            } else {
+                setFormErrors({ ...formErrors, itemLinkError: "Invalid URL" });
+            }
+        }
+        else if (e.target.id === "resourceName") {
+            let resource = e.target.value;
+            if (resource.length >= 5) {
+                setFormErrors({ ...formErrors, resourceNameError: "" })
+            } else {
+                setFormErrors({ ...formErrors, resourceNameError: "Resource name should have minimum 5 characters" });
+            }
+        }
+        else if (e.target.id === "description") {
+            let description = e.target.value;
+            if (description.length > 6) {
+                setFormErrors({ ...formErrors, descriptionError: "" })
+            } else {
+                setFormErrors({ ...formErrors, descriptionError: "Description is too short" })
+            }
+        }
+    }
 
-    const onSubmit = (e) => {
-        console.log(e);
-    };
-
-
-    // return (<h1> Heyv</h1>);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setFormErrors({});
+        console.log(formDetails);
+        if (formDetails.itemName === "" || formDetails.link === "" || formDetails.resourceName === "" || formDetails.description === "") {
+            setFormErrors({ ...formErrors, emptyFormError: "Form field cannot be empty" })
+            toast.error("Form field cannot be empty!", {
+                position: toast.POSITION.BOTTOM_CENTER
+            });
+        } else {
+            toast.success("Item created Successfully", {
+                position: toast.POSITION.BOTTOM_CENTER
+            });
+        }
+    }
 
     return (<>
-        <div class="grid-container">
-            <div class="grid-child createItemForm">
-                <h3>Item Details</h3>
-                <Form onSubmit={onSubmit}>
-                    <Form.Group controlId="formGridItemTitle">
-                        <Form.Label>Item Title</Form.Label>
-                        <Form.Control type="text" onChange={(e) => { setFormErrors({ ...formErrors, emptyFormError: "" }); validateInput(e); setItemTitle(e.target.value) }} />
-                        <Form.Label className='text-danger'>{formErrors.emptyFormError}</Form.Label>
-                        <Form.Label className='h6 text-danger'>{formErrors.itemTitleError}</Form.Label>
-                    </Form.Group>
-
-                    <Form.Group controlId="formGridName">
-                        <Form.Label>Link</Form.Label>
-                        <Form.Control type="url" onChange={(e) => { setFormErrors({ ...formErrors, emptyFormError: "" }); validateInput(e); setItemLink(e.target.value) }} />
-                        <Form.Label className='text-danger'>{formErrors.emptyFormError}</Form.Label>
-                        <Form.Label className='h6 text-danger'>{formErrors.itemLinkError}</Form.Label>
-                    </Form.Group>
-
-                    <Form.Group controlId="formGridName">
-                        <Form.Label>Resource Name</Form.Label>
-                        <Form.Control type="text" onChange={(e) => { setFormErrors({ ...formErrors, emptyFormError: "" }); validateInput(e); setResourceName(e.target.value) }} />
-                        <Form.Label className='text-danger'>{formErrors.emptyFormError}</Form.Label>
-                        <Form.Label className='h6 text-danger'>{formErrors.resourceNameError}</Form.Label>
-                    </Form.Group>
-
-                    <Form.Group controlId="formGridName">
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control type="textarea" onChange={(e) => { setFormErrors({ ...formErrors, emptyFormError: "" }); validateInput(e); setDescription(e.target.value) }} />
-                        <Form.Label className='text-danger'>{formErrors.emptyFormError}</Form.Label>
-                        <Form.Label className='h6 text-danger'>{formErrors.descriptionError}</Form.Label>
-                    </Form.Group>
-
-                    <div className="d-grid gap-2">
-                        <Button variant="success" size="lg" type="submit">
-                            Create
-                        </Button>
+        <div className='row sm-12'>
+            <div className="col sm-12 registration-form">
+                <form onSubmit={handleSubmit}>
+                    <div className="text-center mb-2">
+                        <h3>Create Item</h3>
                     </div>
-                </Form>
+                    <div className="form-group">
+                        <label className='m-1'>ITEM NAME</label>
+                        <input type="text" className="form-control item" id="itemName" placeholder="Item Name"
+                            onChange={(e) => {
+                                setFormErrors({ ...formErrors, emptyFormError: "" });
+                                validateInput(e); onFormUpdate('itemName', e.target.value)
+                            }}
+                        />
+                        <label className='h6 text-danger'>{formErrors.itemTitleError}</label>
+                    </div>
+                    <div className="form-group">
+                        <label className='m-1'>LINK</label>
+                        <input type="text" className="form-control item" id="link" placeholder="Link"
+                            onChange={(e) => {
+                                setFormErrors({ ...formErrors, emptyFormError: "" });
+                                validateInput(e); onFormUpdate('link', e.target.value)
+                            }}
+                        />
+                        <label className='h6 text-danger'>{formErrors.itemLinkError}</label>
+                    </div>
+                    <div className="form-group">
+                        <label className='m-1'>RESOURCE NAME</label>
+                        <input type="text" className="form-control item" id="resourceName" placeholder="Resource Name"
+                            onChange={(e) => {
+                                setFormErrors({ ...formErrors, emptyFormError: "" });
+                                validateInput(e); onFormUpdate('resourceName', e.target.value)
+                            }}
+                        />
+                        <label className='h6 text-danger'>{formErrors.resourceNameError}</label>
+                    </div>
+                    <div className="form-group">
+                        <label className='m-1'>DESCRIPTION</label>
+                        <input type="text-area" className="form-control desc-item" id="description" placeholder="Description"
+                            onChange={(e) => {
+                                setFormErrors({ ...formErrors, emptyFormError: "" });
+                                validateInput(e); onFormUpdate('description', e.target.value)
+                            }}
+                        />
+                        <label className='h6 text-danger'>{formErrors.descriptionError}</label>
+                    </div>
+                    <ToastContainer />
+                    <div className="form-group">
+                        <button type="submit" className="btn btn-primary create-account">Create</button>
+                    </div>
+                </form>
             </div>
-
-            <div class="grid-child sideImage">
-                <img src="/Office_Setup.jpg" alt="Filler image" style={{ height: "600px", width: "500px" }} />
+            <div className="col grid-child sideImage m-2 d-flex justify-content-end mx-auto d-none d-md-block">
+                <img src="/Office_Setup.jpg" alt="Office_Setup" style={{ height: "700px", width: "100%", marginTop: "30px" }} />
             </div>
-
         </div>
-    </>);
+    </>)
 }
 
 export default CreateItem;

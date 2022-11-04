@@ -7,7 +7,6 @@ import Users from './components/Users';
 import Resources from './components/Resources';
 import ResourceDetails from './components/ResourceDetails';
 import CreateItem from './components/CreateItem';
-import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
   return (<>
