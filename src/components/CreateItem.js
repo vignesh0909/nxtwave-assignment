@@ -12,48 +12,10 @@ const CreateItem = () => {
 
     const [formDetails, setFormDetails] = useState(formInitialDetails);
 
-    const [itemTitleError, setItemTitleError] = useState("");
-    const [itemLinkError, setItemLinkError] = useState("");
-    const [resourceNameError, setResourceNameError] = useState("");
-    const [descriptionError, setDescriptionError] = useState("");
+    
 
     const onFormUpdate = (category, value) => {
         setFormDetails({ ...formDetails, [category]: value })
-    }
-
-    const validateInput = (e) => {
-        if (e.target.id === "itemName") {
-            let title = e.target.value;
-            if (title.length >= 3 && title.length <= 50) {
-                setItemTitleError("");
-            } else {
-                setItemTitleError("Title should have 3 to 50 characters");
-            }
-        }
-        else if (e.target.id === "link") {
-            let link = e.target.value;
-            if (link.length > 10) {
-                setItemLinkError("");
-            } else {
-                setItemLinkError("Invalid URL");
-            }
-        }
-        else if (e.target.id === "resourceName") {
-            let resource = e.target.value;
-            if (resource.length >= 5) {
-                setResourceNameError("");
-            } else {
-                setResourceNameError("Resource name should have minimum 5 characters")
-            }
-        }
-        else if (e.target.id === "description") {
-            let description = e.target.value;
-            if (description.length > 6) {
-                setDescriptionError("");
-            } else {
-                setDescriptionError("Description is too short");
-            }
-        }
     }
 
     const handleSubmit = (e) => {
@@ -102,7 +64,7 @@ const CreateItem = () => {
                         <label className='m-1'>ITEM NAME</label>
                         <input type="text" className="form-control item" id="itemName" placeholder="Item Name"
                             onChange={(e) => {
-                                validateInput(e); setItemTitleError("");
+                                
                                 onFormUpdate('itemName', e.target.value)
                             }}
                         />
@@ -111,7 +73,7 @@ const CreateItem = () => {
                         <label className='m-1'>LINK</label>
                         <input type="text" className="form-control item" id="link" placeholder="Link"
                             onChange={(e) => {
-                                validateInput(e); setItemLinkError("");
+                                
                                 onFormUpdate('link', e.target.value)
                             }}
                         />
@@ -120,7 +82,7 @@ const CreateItem = () => {
                         <label className='m-1'>RESOURCE NAME</label>
                         <input type="text" className="form-control item" id="resourceName" placeholder="Resource Name"
                             onChange={(e) => {
-                                validateInput(e); setResourceNameError("");
+                                
                                 onFormUpdate('resourceName', e.target.value)
                             }}
                         />
@@ -130,7 +92,7 @@ const CreateItem = () => {
                         <label className='m-1'>DESCRIPTION</label>
                         <input type="text-area" className="form-control desc-item" id="description" placeholder="Description"
                             onChange={(e) => {
-                                validateInput(e); setDescriptionError("");
+                                
                                 onFormUpdate('description', e.target.value)
                             }}
                         />

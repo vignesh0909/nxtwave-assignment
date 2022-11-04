@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-
+import { LoginContext } from '../context/LoginContext';
 
 function LoginPage() {
+
+    const { login, setLogin } = useContext(LoginContext);
+    console.log(login);
 
     const loginPage = {
         // width: '350px',
@@ -25,12 +28,14 @@ function LoginPage() {
 
     const navigate = useNavigate();
     const onSubmit = (e) => {
-        console.log(e);
-        localStorage.setItem('isLoggedIn', true);
+        e.preventDefault();
+        //console.log(e);
+        setLogin("true");
         navigate("/resources");
     };
 
-    return (
+    return (<>
+        {login}
         <div style={loginPage}>
             <div style={loginCard}>
                 <span >
@@ -54,7 +59,7 @@ function LoginPage() {
                 </Form>
             </div>
         </div>
-    );
+    </>);
 }
 
 export default LoginPage
