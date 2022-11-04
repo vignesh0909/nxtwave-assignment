@@ -12,12 +12,10 @@ const CreateItem = () => {
 
     const [formDetails, setFormDetails] = useState(formInitialDetails);
 
-    const [formErrors, setFormErrors] = useState({
-        itemTitleError: "",
-        itemLinkError: "",
-        resourceNameError: "",
-        descriptionError: ""
-    })
+    const [itemTitleError, setItemTitleError] = useState("");
+    const [itemLinkError, setItemLinkError] = useState("");
+    const [resourceNameError, setResourceNameError] = useState("");
+    const [descriptionError, setDescriptionError] = useState("");
 
     const onFormUpdate = (category, value) => {
         setFormDetails({ ...formDetails, [category]: value })
@@ -27,50 +25,69 @@ const CreateItem = () => {
         if (e.target.id === "itemName") {
             let title = e.target.value;
             if (title.length >= 3 && title.length <= 50) {
-                setFormErrors({ ...formErrors, itemTitleError: "" })
+                setItemTitleError("");
             } else {
-                setFormErrors({ ...formErrors, itemTitleError: "Title should have 3 to 50 characters" });
+                setItemTitleError("Title should have 3 to 50 characters");
             }
         }
         else if (e.target.id === "link") {
             let link = e.target.value;
             if (link.length > 10) {
-                setFormErrors({ ...formErrors, itemLinkError: "" })
+                setItemLinkError("");
             } else {
-                setFormErrors({ ...formErrors, itemLinkError: "Invalid URL" });
+                setItemLinkError("Invalid URL");
             }
         }
         else if (e.target.id === "resourceName") {
             let resource = e.target.value;
             if (resource.length >= 5) {
-                setFormErrors({ ...formErrors, resourceNameError: "" })
+                setResourceNameError("");
             } else {
-                setFormErrors({ ...formErrors, resourceNameError: "Resource name should have minimum 5 characters" });
+                setResourceNameError("Resource name should have minimum 5 characters")
             }
         }
         else if (e.target.id === "description") {
             let description = e.target.value;
             if (description.length > 6) {
-                setFormErrors({ ...formErrors, descriptionError: "" })
+                setDescriptionError("");
             } else {
-                setFormErrors({ ...formErrors, descriptionError: "Description is too short" })
+                setDescriptionError("Description is too short");
             }
         }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setFormErrors({});
-        console.log(formDetails);
+        //setFormErrors({});
+        //console.log(formDetails);
         if (formDetails.itemName === "" || formDetails.link === "" || formDetails.resourceName === "" || formDetails.description === "") {
-            setFormErrors({ ...formErrors, emptyFormError: "Form field cannot be empty" })
             toast.error("Form field cannot be empty!", {
                 position: toast.POSITION.BOTTOM_CENTER
             });
         } else {
-            toast.success("Item created Successfully", {
-                position: toast.POSITION.BOTTOM_CENTER
-            });
+            console.log(formDetails);
+            if (formDetails.itemName.length < 3) {
+                toast.error("Title should have minimum 3 characters", {
+                    position: toast.POSITION.BOTTOM_CENTER
+                });
+            } else if (formDetails.link.length < 10) {
+                toast.error("Invalid URL", {
+                    position: toast.POSITION.BOTTOM_CENTER
+                });
+            } else if (formDetails.resourceName.length < 5) {
+                toast.error("Resource name should have minimum 5 characters", {
+                    position: toast.POSITION.BOTTOM_CENTER
+                });
+            } else if (formDetails.description.length < 6) {
+                toast.error("Description is too short", {
+                    position: toast.POSITION.BOTTOM_CENTER
+                });
+            }
+            else {
+                toast.success("Item created Successfully", {
+                    position: toast.POSITION.BOTTOM_CENTER
+                });
+            }
         }
     }
 
@@ -85,41 +102,38 @@ const CreateItem = () => {
                         <label className='m-1'>ITEM NAME</label>
                         <input type="text" className="form-control item" id="itemName" placeholder="Item Name"
                             onChange={(e) => {
-                                setFormErrors({ ...formErrors, emptyFormError: "" });
-                                validateInput(e); onFormUpdate('itemName', e.target.value)
+                                validateInput(e); setItemTitleError("");
+                                onFormUpdate('itemName', e.target.value)
                             }}
                         />
-                        <label className='h6 text-danger'>{formErrors.itemTitleError}</label>
                     </div>
                     <div className="form-group">
                         <label className='m-1'>LINK</label>
                         <input type="text" className="form-control item" id="link" placeholder="Link"
                             onChange={(e) => {
-                                setFormErrors({ ...formErrors, emptyFormError: "" });
-                                validateInput(e); onFormUpdate('link', e.target.value)
+                                validateInput(e); setItemLinkError("");
+                                onFormUpdate('link', e.target.value)
                             }}
                         />
-                        <label className='h6 text-danger'>{formErrors.itemLinkError}</label>
                     </div>
                     <div className="form-group">
                         <label className='m-1'>RESOURCE NAME</label>
                         <input type="text" className="form-control item" id="resourceName" placeholder="Resource Name"
                             onChange={(e) => {
-                                setFormErrors({ ...formErrors, emptyFormError: "" });
-                                validateInput(e); onFormUpdate('resourceName', e.target.value)
+                                validateInput(e); setResourceNameError("");
+                                onFormUpdate('resourceName', e.target.value)
                             }}
                         />
-                        <label className='h6 text-danger'>{formErrors.resourceNameError}</label>
+
                     </div>
                     <div className="form-group">
                         <label className='m-1'>DESCRIPTION</label>
                         <input type="text-area" className="form-control desc-item" id="description" placeholder="Description"
                             onChange={(e) => {
-                                setFormErrors({ ...formErrors, emptyFormError: "" });
-                                validateInput(e); onFormUpdate('description', e.target.value)
+                                validateInput(e); setDescriptionError("");
+                                onFormUpdate('description', e.target.value)
                             }}
                         />
-                        <label className='h6 text-danger'>{formErrors.descriptionError}</label>
                     </div>
                     <ToastContainer />
                     <div className="form-group">

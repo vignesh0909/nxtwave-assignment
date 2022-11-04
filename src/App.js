@@ -7,13 +7,15 @@ import Users from './components/Users';
 import Resources from './components/Resources';
 import ResourceDetails from './components/ResourceDetails';
 import CreateItem from './components/CreateItem';
+import LoginPage from './components/LoginPage';
 
 function App() {
   return (<>
     <NavBar />
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Resources />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/resources" element={<Resources />} />
         <Route path="/requests" element={<Requests />} />
         <Route path="/users" element={<Users />} />
         <Route path="/resource/:id" element={<ResourceDetails />} />
