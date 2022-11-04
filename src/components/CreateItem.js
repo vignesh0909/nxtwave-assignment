@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const CreateItem = () => {
     const formInitialDetails = {
@@ -11,8 +12,6 @@ const CreateItem = () => {
     }
 
     const [formDetails, setFormDetails] = useState(formInitialDetails);
-
-    
 
     const onFormUpdate = (category, value) => {
         setFormDetails({ ...formDetails, [category]: value })
@@ -46,6 +45,11 @@ const CreateItem = () => {
                 });
             }
             else {
+                console.log(formDetails);
+                axios.post('https://media-content.ccbp.in/website/react-assignment/add_resource.json',formDetails)
+                    .then((res) => {
+                        console.log(res);
+                    })
                 toast.success("Item created Successfully", {
                     position: toast.POSITION.BOTTOM_CENTER
                 });
@@ -64,7 +68,7 @@ const CreateItem = () => {
                         <label className='m-1'>ITEM NAME</label>
                         <input type="text" className="form-control item" id="itemName" placeholder="Item Name"
                             onChange={(e) => {
-                                
+
                                 onFormUpdate('itemName', e.target.value)
                             }}
                         />
@@ -73,7 +77,7 @@ const CreateItem = () => {
                         <label className='m-1'>LINK</label>
                         <input type="text" className="form-control item" id="link" placeholder="Link"
                             onChange={(e) => {
-                                
+
                                 onFormUpdate('link', e.target.value)
                             }}
                         />
@@ -82,7 +86,7 @@ const CreateItem = () => {
                         <label className='m-1'>RESOURCE NAME</label>
                         <input type="text" className="form-control item" id="resourceName" placeholder="Resource Name"
                             onChange={(e) => {
-                                
+
                                 onFormUpdate('resourceName', e.target.value)
                             }}
                         />
@@ -92,7 +96,7 @@ const CreateItem = () => {
                         <label className='m-1'>DESCRIPTION</label>
                         <input type="text-area" className="form-control desc-item" id="description" placeholder="Description"
                             onChange={(e) => {
-                                
+
                                 onFormUpdate('description', e.target.value)
                             }}
                         />

@@ -102,3 +102,8 @@ nav a:hover {
     padding: 50px 20px;
   }
 }
+
+.search-inp{
+  width: 50%;
+  color: antiquewhite;
+}

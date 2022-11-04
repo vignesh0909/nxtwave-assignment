@@ -40,6 +40,7 @@ function Table({ data }) {
                 {
                     Header: 'Link',
                     accessor: 'link',
+                    Cell: props => <a target='_blank' href={props.value} rel="noreferrer">{props.value}</a>
                 },
             ],
         },

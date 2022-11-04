@@ -7,7 +7,7 @@ const SwitchTabs = () => {
             <nav>
                 <NavLink
                     className={({ isActive }) => (isActive ? "link-active" : "link")}
-                    to="/"
+                    to="/resources"
                 >
                     Resources
                 </NavLink>
