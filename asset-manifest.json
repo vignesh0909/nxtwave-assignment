@@ -1,15 +1,16 @@
 {
   "files": {
     "main.css": "/nxtwave-assignment/static/css/main.a5efa97d.css",
-    "main.js": "/nxtwave-assignment/static/js/main.71e8df70.js",
+    "main.js": "/nxtwave-assignment/static/js/main.31b78bef.js",
     "static/js/787.740a8a08.chunk.js": "/nxtwave-assignment/static/js/787.740a8a08.chunk.js",
+    "static/media/Office_Setup.jpg": "/nxtwave-assignment/static/media/Office_Setup.6863ed08523e5c3c6ebc.jpg",
     "index.html": "/nxtwave-assignment/index.html",
     "main.a5efa97d.css.map": "/nxtwave-assignment/static/css/main.a5efa97d.css.map",
-    "main.71e8df70.js.map": "/nxtwave-assignment/static/js/main.71e8df70.js.map",
+    "main.31b78bef.js.map": "/nxtwave-assignment/static/js/main.31b78bef.js.map",
     "787.740a8a08.chunk.js.map": "/nxtwave-assignment/static/js/787.740a8a08.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a5efa97d.css",
-    "static/js/main.71e8df70.js"
+    "static/js/main.31b78bef.js"
   ]
 }
