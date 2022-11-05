@@ -46,8 +46,10 @@ function Table({ data }) {
         },
 
     ], []);
-
+    const [delFlag, setDelflag] = useState(false);
     const [filterInput, setFilterInput] = useState("");
+    let Ids = [];
+    const [tempData, setTempData] = useState([]);
 
     // Update the state when input changes
     const handleFilterChange = e => {
@@ -103,111 +105,131 @@ function Table({ data }) {
         }
     )
 
+    const getIds = () => {
+
+        for (let [key, value] of Object.entries(selectedFlatRows)) {
+            Ids = [...Ids, parseInt(key) + 1];
+        }
+        return Ids;
+    }
+
     const handleDelete = () => {
         console.log(selectedRowIds)
         console.log(selectedFlatRows)
-        //const res = data.filter(({ id: id1 }) => !selectedFlatRows.some(({ id: id2 }) => id2 === id1));
-        //console.log(data);
+        console.log(delFlag);
+        //console.log(selectedFlatRows.Object.values);
+        console.log(getIds());
+        console.log(Ids);
+        setDelflag(true);
+        let res = data.filter(item => !Ids.includes(parseInt(item.id)))
+        //console.log(res);
+        setTempData(res);
+        console.log(data);
     }
 
     return (<>
-
-
-        <div className="container mt-5">
-            <input
-                value={filterInput}
-                onChange={handleFilterChange}
-                placeholder={"Search by title......"}
-                className='m-5 rounded'
-            />
-            <div className="d-flex justify-content-end m-4">
-                <button className="btn btn-success m-2">Add Item</button>
-                {Object.keys(selectedRowIds).length > 0 ? (
-                    <button className="btn btn-danger m-2" onClick={handleDelete}>Delete Item</button>
-                ) :
-                    <button className="btn btn-danger m-2 disabled">Delete Item</button>
-                }
-                {Object.keys(selectedRowIds).length > 0 ? (
-                    <button className="btn btn-info m-2">Edit Item</button>
-                ) :
-                    <button className="btn btn-info m-2 disabled">Edit Item</button>
-                }
-            </div>
-            <table className="table table-bordered" {...getTableProps()}>
-                <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th
-                                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                                    className={
-                                        column.isSorted
-                                            ? column.isSortedDesc
-                                                ? "sort-desc"
-                                                : "sort-asc"
-                                            : ""
-                                    }
-                                >
-                                    {column.render("Header")}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-
-                <tbody {...getTableBodyProps()}>
-                    {page.map((row, i) => {
-                        prepareRow(row)
-                        return (<>
-                            <tr {...row.getRowProps()}>
-                                {row.cells.map(cell => {
-                                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                })}
-                            </tr>
-                        </>)
-                    })}
-                </tbody>
-            </table>
-
-            {/* eslint-disable jsx-a11y/anchor-is-valid */}
-            <ul className="pagination d-flex justify-content-center">
-                <li className="page-item" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-                    <a className="page-link" >{'<<'}</a>
-                </li>
-                <li className="page-item" onClick={() => previousPage()} disabled={!canPreviousPage}>
-                    <a className="page-link" >{'<'}</a>
-                </li>
-                <li>
-                    <a className="page-link" >
-                        Page{' '}
-                        <strong>
-                            {pageIndex + 1} of {pageOptions.length}
-                        </strong>{' '}
-                    </a>
-                </li>
-                <li className="page-item" onClick={() => nextPage()} disabled={!canNextPage}>
-                    <a className="page-link" >{'>'}</a>
-                </li>
-                <li className="page-item" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-                    <a className="page-link" >{'>>'}</a>
-                </li>
-
-                <li>
-                    <a className="page-link" >
+        {
+            delFlag === true ?
+                (
+                    <Table data={tempData} />
+                ) : (
+                    <div className="container mt-5">
                         <input
-                            className="form-control"
-                            type="number"
-                            defaultValue={pageIndex + 1}
-                            onChange={e => {
-                                const page = e.target.value ? Number(e.target.value) - 1 : 0
-                                gotoPage(page)
-                            }}
-                            style={{ width: '100px', height: '25px' }}
+                            value={filterInput}
+                            onChange={handleFilterChange}
+                            placeholder={"Search by title......"}
+                            className='m-5 rounded'
                         />
-                    </a>
-                </li>{' '}
-            </ul>
-        </div>
+                        <div className="d-flex justify-content-end m-4">
+                            <button className="btn btn-success m-2">Add Item</button>
+                            {Object.keys(selectedRowIds).length > 0 ? (
+                                <button className="btn btn-danger m-2" onClick={handleDelete}>Delete Item</button>
+                            ) :
+                                <button className="btn btn-danger m-2 disabled">Delete Item</button>
+                            }
+                            {Object.keys(selectedRowIds).length > 0 ? (
+                                <button className="btn btn-info m-2">Edit Item</button>
+                            ) :
+                                <button className="btn btn-info m-2 disabled">Edit Item</button>
+                            }
+                        </div>
+                        <table className="table table-bordered" {...getTableProps()}>
+                            <thead>
+                                {headerGroups.map(headerGroup => (
+                                    <tr {...headerGroup.getHeaderGroupProps()}>
+                                        {headerGroup.headers.map(column => (
+                                            <th
+                                                {...column.getHeaderProps(column.getSortByToggleProps())}
+                                                className={
+                                                    column.isSorted
+                                                        ? column.isSortedDesc
+                                                            ? "sort-desc"
+                                                            : "sort-asc"
+                                                        : ""
+                                                }
+                                            >
+                                                {column.render("Header")}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </thead>
+
+                            <tbody {...getTableBodyProps()}>
+                                {page.map((row, i) => {
+                                    prepareRow(row)
+                                    return (<>
+                                        <tr {...row.getRowProps()}>
+                                            {row.cells.map(cell => {
+                                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                            })}
+                                        </tr>
+                                    </>)
+                                })}
+                            </tbody>
+                        </table>
+
+                        {/* eslint-disable jsx-a11y/anchor-is-valid */}
+                        <ul className="pagination d-flex justify-content-center">
+                            <li className="page-item" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+                                <a className="page-link" >{'<<'}</a>
+                            </li>
+                            <li className="page-item" onClick={() => previousPage()} disabled={!canPreviousPage}>
+                                <a className="page-link" >{'<'}</a>
+                            </li>
+                            <li>
+                                <a className="page-link" >
+                                    Page{' '}
+                                    <strong>
+                                        {pageIndex + 1} of {pageOptions.length}
+                                    </strong>{' '}
+                                </a>
+                            </li>
+                            <li className="page-item" onClick={() => nextPage()} disabled={!canNextPage}>
+                                <a className="page-link" >{'>'}</a>
+                            </li>
+                            <li className="page-item" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+                                <a className="page-link" >{'>>'}</a>
+                            </li>
+
+                            <li>
+                                <a className="page-link" >
+                                    <input
+                                        className="form-control"
+                                        type="number"
+                                        defaultValue={pageIndex + 1}
+                                        onChange={e => {
+                                            const page = e.target.value ? Number(e.target.value) - 1 : 0
+                                            gotoPage(page)
+                                        }}
+                                        style={{ width: '100px', height: '25px' }}
+                                    />
+                                </a>
+                            </li>{' '}
+                        </ul>
+                    </div>
+                )
+        }
     </>)
 }
 
