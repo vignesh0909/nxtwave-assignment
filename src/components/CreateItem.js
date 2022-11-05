@@ -46,10 +46,11 @@ const CreateItem = () => {
             }
             else {
                 console.log(formDetails);
-                axios.post('https://media-content.ccbp.in/website/react-assignment/add_resource.json',formDetails)
+                axios.post('https://media-content.ccbp.in/website/react-assignment/add_resource.json', formDetails)
                     .then((res) => {
                         console.log(res);
                     })
+                e.target.reset();
                 toast.success("Item created Successfully", {
                     position: toast.POSITION.BOTTOM_CENTER
                 });

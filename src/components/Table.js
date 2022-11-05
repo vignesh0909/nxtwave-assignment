@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useFilters, usePagination, useRowSelect, useSortBy, useTable } from 'react-table'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
 const IndeterminateCheckbox = React.forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -20,10 +21,10 @@ const IndeterminateCheckbox = React.forwardRef(
 )
 
 function Table({ data }) {
-
+    const navigate = useNavigate();
     const columns = useMemo(() => [
         {
-            Header: ' ',
+            Header: 'Click on Header to sort',
             columns: [
                 {
                     Header: 'Created At',
@@ -44,7 +45,6 @@ function Table({ data }) {
                 },
             ],
         },
-
     ], []);
     const [delFlag, setDelflag] = useState(false);
     const [filterInput, setFilterInput] = useState("");
@@ -106,8 +106,7 @@ function Table({ data }) {
     )
 
     const getIds = () => {
-
-        for (let [key, value] of Object.entries(selectedFlatRows)) {
+        for (let [key] of Object.entries(selectedFlatRows)) {
             Ids = [...Ids, parseInt(key) + 1];
         }
         return Ids;
@@ -141,7 +140,7 @@ function Table({ data }) {
                             className='m-5 rounded'
                         />
                         <div className="d-flex justify-content-end m-4">
-                            <button className="btn btn-success m-2">Add Item</button>
+                            <button className="btn btn-success m-2" onClick={() => navigate('/resource/create')}>Add Item</button>
                             {Object.keys(selectedRowIds).length > 0 ? (
                                 <button className="btn btn-danger m-2" onClick={handleDelete}>Delete Item</button>
                             ) :

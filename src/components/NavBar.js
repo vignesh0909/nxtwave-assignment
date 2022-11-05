@@ -9,7 +9,7 @@ const NavBar = () => {
     const { login, setLogin } = useContext(LoginContext);
     const navigate = useNavigate();
     const handleAddItem = () => {
-        navigate('/resource/create');
+        navigate('/resource/create/');
     }
     return (<>
         <h1>{login}</h1>
